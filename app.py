@@ -46,7 +46,12 @@ def main():
 
         if submit:
             input_prompt = """
+            if the given image is not a Food or any Drink than answer "Try again That is not a food !!" and exit
+            else answer following
+            
+            
             supposing you are expert in Nutrition value measurement.
+            
             Food Nutritional Assessment Prompt provide the following accurately:
 
             Name of Dish: [Input the name of the dish here]
@@ -82,7 +87,7 @@ def main():
 
             provide answer for water also
 
-            Also if Image does not Belong to any kind of Food or drink Please reply "Oops ! Image is not a Food Try again!!"
+             "
             """
 
             image_data = input_image_setup(uploaded_file)
