@@ -3,6 +3,7 @@ import google.generativeai as genai
 import os 
 from dotenv import load_dotenv
 from PIL import Image as PILImage
+import google.api_core.exceptions
 
 
 load_dotenv()
@@ -45,55 +46,54 @@ def main():
         submit = st.button("Tell me about Food Nutrition")
 
         if submit:
-            input_prompt = """
-            if the given image is not a Food or any Drink than answer "Try again That is not a food !!" and exit
-            else answer following
-            
-            
-            supposing you are expert in Nutrition value measurement.
-            
-            Food Nutritional Assessment Prompt provide the following accurately:
+            try:
+                input_prompt = """
+                if the given image is not a Food or any Drink than answer "Try again That is not a food !!" and exit
+                else answer following
 
-            Name of Dish: [Input the name of the dish here]
+                supposing you are expert in Nutrition value measurement.
 
-            Description of Dish: [Provide any additional details or ingredients if necessary]
+                Food Nutritional Assessment Prompt provide the following accurately:
 
-            Portion Size: [Specify the portion size, e.g., 100 grams or 100 ml if it's a drink]
+                Name of Dish: [Input the name of the dish here]
 
-            Healthiness Assessment:
+                Description of Dish: [Provide any additional details or ingredients if necessary]
 
-            Is the dish generally considered healthy? [Yes/No/Neutral]
-            Nutritional Values (per specified portion size):
+                Portion Size: [Specify the portion size, e.g., 100 grams or 100 ml if it's a drink]
 
-            Calories: [Provide the number of calories per portion]
+                Healthiness Assessment:
 
-            Fat: [Specify the amount of fat in grams per portion]
+                Is the dish generally considered healthy? [Yes/No/Neutral]
+                Nutritional Values (per specified portion size):
 
-            Carbohydrates: [Specify the amount of carbohydrates in grams per portion]
+                Calories: [Provide the number of calories per portion]
 
-            Protein: [If applicable, specify the amount of protein in grams per portion]
+                Fat: [Specify the amount of fat in grams per portion]
 
-            Sugar: [If applicable, specify the amount of sugar in grams per portion]
+                Carbohydrates: [Specify the amount of carbohydrates in grams per portion]
 
-            Fiber: [If applicable, specify the amount of fiber in grams per portion]
+                Protein: [If applicable, specify the amount of protein in grams per portion]
 
-            Sodium: [If applicable, specify the amount of sodium in milligrams per portion]
+                Sugar: [If applicable, specify the amount of sugar in grams per portion]
 
-            Other Key Nutrients: [Any other important nutrients present in significant amounts]
+                Fiber: [If applicable, specify the amount of fiber in grams per portion]
 
-            Additional Notes:
+                Sodium: [If applicable, specify the amount of sodium in milligrams per portion]
 
-            [Provide any further insights or information regarding the dish's nutritional value, ingredients, or health implications.]
+                Other Key Nutrients: [Any other important nutrients present in significant amounts]
 
-            provide answer for water also
+                Additional Notes:
 
-             "
-            """
+                [Provide any further insights or information regarding the dish's nutritional value, ingredients, or health implications.]
 
-            image_data = input_image_setup(uploaded_file)
-            response = get_gemini_response(input_prompt, image_data)
-            st.header("The Response is")
-            st.write(response)
+                provide answer for water also
+                """
+                image_data = input_image_setup(uploaded_file)
+                response = get_gemini_response(input_prompt, image_data)
+                st.header("The Response is")
+                st.write(response)
+            except google.api_core.exceptions.InvalidArgument:
+                st.error("Please upload an image of food or drink.")
 
 
 if __name__ == "__main__":
