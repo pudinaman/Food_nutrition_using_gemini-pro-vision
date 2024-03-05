@@ -48,45 +48,40 @@ def main():
         if submit:
             try:
                 input_prompt = """
-                if the given image is not a Food or any Drink than answer "Try again That is not a food !!" and exit
-                else answer following
-
-                supposing you are expert in Nutrition value measurement.
-
-                Food Nutritional Assessment Prompt provide the following accurately:
-
+                I have given you a Food dish tell me the following accurately
                 Name of Dish: [Input the name of the dish here]
 
-                Description of Dish: [Provide any additional details or ingredients if necessary]
+Description of Dish: [Provide any additional details or ingredients if necessary]
 
-                Portion Size: [Specify the portion size, e.g., 100 grams or 100 ml if it's a drink]
+Portion Size: [Specify the portion size, e.g., 100 grams or 100 ml if it's a drink]
 
-                Healthiness Assessment:
+Healthiness Assessment:
 
-                Is the dish generally considered healthy? [Yes/No/Neutral]
-                Nutritional Values (per specified portion size):
+Is the dish generally considered healthy? [Yes/No/Neutral]
 
-                Calories: [Provide the number of calories per portion]
+Nutritional Values (per specified portion size):
 
-                Fat: [Specify the amount of fat in grams per portion]
+Calories: [Provide the number of calories per portion]
 
-                Carbohydrates: [Specify the amount of carbohydrates in grams per portion]
+Fat: [Specify the amount of fat in grams per portion]
 
-                Protein: [If applicable, specify the amount of protein in grams per portion]
+Carbohydrates: [Specify the amount of carbohydrates in grams per portion]
 
-                Sugar: [If applicable, specify the amount of sugar in grams per portion]
+Protein: [If applicable, specify the amount of protein in grams per portion]
 
-                Fiber: [If applicable, specify the amount of fiber in grams per portion]
+Sugar: [If applicable, specify the amount of sugar in grams per portion]
 
-                Sodium: [If applicable, specify the amount of sodium in milligrams per portion]
+Fiber: [If applicable, specify the amount of fiber in grams per portion]
 
-                Other Key Nutrients: [Any other important nutrients present in significant amounts]
+Sodium: [If applicable, specify the amount of sodium in milligrams per portion]
 
-                Additional Notes:
+Other Key Nutrients: [Any other important nutrients present in significant amounts]
 
-                [Provide any further insights or information regarding the dish's nutritional value, ingredients, or health implications.]
+Additional Notes:
 
-                provide answer for water also
+if the given image is not in category of food  or not related to any of the food item response me "This is not the image of Food"
+
+[Provide any further insights or information regarding the dish's nutritional value, ingredients, or health implications.]
                 """
                 image_data = input_image_setup(uploaded_file)
                 response = get_gemini_response(input_prompt, image_data)
